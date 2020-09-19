@@ -1,24 +1,32 @@
 import React from 'react';
 import logo from './logo.svg';
+import { Route, Switch } from 'react-router-dom';
 import './App.css';
+import ErrorPage from './Pages/ErrorPage/ErrorPage';
+import NavBar from './Pages/NavBar/NavBar';
+import Signup from './Pages/Signup/Signup';
+import Login from './Pages/Login/Login';
+import PostsPage from './Pages/PostsPage/PostsPage';
+import AddPost from './Pages/AddPost/AddPost';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <NavBar />
       </header>
+
+      <main className="App-main">
+        <Switch>
+          <Route exact path='/' component={PostsPage}/>
+          <Route path='/login' component={Login}/>
+          <Route path='/signup' component={Signup}/>
+          <Route path='/addpost' component={AddPost}/>
+          <Route render={ () => (
+              <ErrorPage errorMessage={'Page not found'}/>
+            )} />
+        </Switch>
+      </main>
     </div>
   );
 }
