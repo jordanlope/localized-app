@@ -8,6 +8,7 @@ import Signup from './Pages/Signup/Signup';
 import Login from './Pages/Login/Login';
 import PostsPage from './Pages/PostsPage/PostsPage';
 import AddPost from './Pages/AddPost/AddPost';
+import PostPage from './Pages/PostPage/PostPage';
 
 function App() {
   return (
@@ -19,8 +20,9 @@ function App() {
       <main className="App-main">
         <Switch>
           <Route exact path='/' component={PostsPage}/>
-          <Route path='/login' component={Login}/>
-          <Route path='/signup' component={Signup}/>
+          {/* <Route path='/login' component={Login}/>
+          <Route path='/signup' component={Signup}/> */}
+          <Route path='/post/:postId' component={PostPage} />
           <Route path='/addpost' component={AddPost}/>
           <Route render={ () => (
               <ErrorPage errorMessage={'Page not found'}/>

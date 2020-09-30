@@ -4,10 +4,13 @@ import { BrowserRouter } from "react-router-dom";
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { PostListProvider } from './contexts/PostListContext'
 
 ReactDOM.render(
   <BrowserRouter>
-    <App />
+    <PostListProvider>
+      <App />
+    </PostListProvider>
   </BrowserRouter>,
   document.getElementById('root')
 );

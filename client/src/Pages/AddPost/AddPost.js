@@ -1,34 +1,84 @@
 import React, { Component } from 'react';
 import './AddPost.css';
+import PostAPIService from '../../services/post-api-service';
 import { withRouter } from 'react-router-dom';
 
-export default class AddPost extends Component {
+class AddPost extends Component {
 
     constructor(props) {
         super(props);
         this.state = { 
             error: null,
             description: '', 
-            organization: '',
-            postTitle: ''
+            businessid: null,
+            posttitle: ''
         }
+    }
+
+    businessIdChange(id) {
+        this.setState({
+            businessid: id
+        })
+    }
+
+    descriptionChange(description) {
+        this.setState({
+            description
+        })
+    }
+
+    postTitleChange(posttitle) {
+        this.setState({
+            posttitle
+        })
+    }
+
+    handleSubmit = ev => {
+        ev.preventDefault()
+
+        const {
+            description,
+            posttitle,
+            businessid
+        } = this.state;
+
+        const newPost = {
+            businessid,
+            posttitle,
+            description
+        }
+
+        PostAPIService.post(newPost)
+        .then(data => {
+            this.setState({
+                businessid: null, 
+                posttitle: '',
+                description: ''
+            })
+
+            this.props.history.push('/')
+        }).catch(res => {
+            console.log(res.error)
+            this.setState({ error: res.error })
+        })
     }
 
     render() {
         return (
             <form
                 className="SignupForm"
-                >
+                onSubmit={this.handleSubmit}>
                 <h1>Add Post</h1>
-                <div className='organization'>
+                <div className='businessId'>
                     <label>
-                        Organization:
+                        Business Id:
                     </label>
 
                     <input
-                        type='text'
+                        type='number'
                         required
-                        name='organization'/>
+                        name='businessId'
+                        onChange={e => this.businessIdChange(e.target.value)}/>
                 </div>
                 <div className='description'>
                     <label >
@@ -38,7 +88,8 @@ export default class AddPost extends Component {
                     <input
                         type='text'
                         required
-                        name='description'/>
+                        name='description'
+                        onChange={e => this.descriptionChange(e.target.value)}/>
                 </div>
                 <div className='postTitle'>
                     <label>
@@ -48,7 +99,8 @@ export default class AddPost extends Component {
                     <input
                         type='text'
                         required
-                        name='postTitle'/>
+                        name='postTitle'
+                        onChange={e => this.postTitleChange(e.target.value)}/>
                 </div> 
                 <button type='submit'>
                     Complete
@@ -57,3 +109,5 @@ export default class AddPost extends Component {
         );
     }
 }
+
+export default withRouter(AddPost);

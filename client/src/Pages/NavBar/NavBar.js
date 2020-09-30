@@ -12,7 +12,7 @@ class NavBar extends Component {
           </Link>
           <nav className="Nav-Bar">
             <ul className="Nav-List">
-              <li>
+              {/* <li>
                 <Link to='/login'>
                   Login
                 </Link>
@@ -20,6 +20,11 @@ class NavBar extends Component {
               <li>
                 <Link to='/signup'>
                   Sign up
+                </Link>
+              </li> */}
+              <li>
+                <Link to='/'>
+                  Home
                 </Link>
               </li>
               <li>
